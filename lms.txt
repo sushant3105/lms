@@ -1,0 +1,55 @@
+---- Library Management Systummmmmm ----
+
+Database > Library
+
+Tables > {
+    Books
+    Management
+}
+
+**************
+
+Books
+'''
+sr | Book name |  id (key) |   Author   | Published |
+1  '   Gita    '   nf#1    '   Vyasa    ' 5000b.c   
+
+'''
+# Quantity | Available | genre
+
+-----
+
+Management
+'''
+sr | Book name | Student | id | issued | return |
+
+**************
+
+Features
+1>view books 
+2>edit books
+
+
+Admin / User
+
+if admin>
+    All 
+if user>
+    view only
+
+viewbooks.
+    view All
+    view genre wise
+    view author wise
+
+searchbooks.
+    search book/s name wise
+    search books id wise
+
+sqlpass
+Database name
+
+Enter your mysql password : 
+if sqlpass matched:
+    select Database if not found
+    login
