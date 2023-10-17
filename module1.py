@@ -3,8 +3,8 @@
 from tabulate import tabulate
 import mysql.connector as con
 
-def viewbooks(sqlpass):
-    mydb = con.connect(host='localhost',user='root',password=sqlpass,database='sample')
+def viewbooks(sqlpass,dbasename='sample'):
+    mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     cursor = mydb.cursor()
     infopanel = 'a > all\ng > genre'
     print(infopanel)

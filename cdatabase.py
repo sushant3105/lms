@@ -6,7 +6,7 @@ def createdatabase_if_not(sqlpass,dbasename='library'):
     # dbasename = input('Enter DATABASE/OR CREATE : ')
     try:
         mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
-        mera = mydb.connect()
+        mera = mydb.cursor()
     except:
         print('Creating a new one...')
         mydb = con.connect(host='localhost',user='root',password=sqlpass)
@@ -18,16 +18,18 @@ def createdatabase_if_not(sqlpass,dbasename='library'):
     else:
         print('DATABSE FOUND ..')
         try:
-            print('1')
-            mera.execute('use library')
-            print(2)
-            result = mcursor.fetchall()
-            print(len(result))
+            mera.execute('show tables')
+            result = mera.fetchall()
+            if len(result)==0:
+                createtable()
         except Exception as e:
-            print('cannot comprehend')
+            print('Error at e ')
             print(e)
-    
-    return dbasename
+
+    return sqlpass
+def createtable():
+    print('hello brother')
+    # return dbasename
 
 def deletedatabase(sqlpass, dltit):
     try:

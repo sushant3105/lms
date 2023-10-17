@@ -65,6 +65,7 @@ def login():
 
     # This code checks if admin passoword is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
+    print("\n[ 'E' or 'e' is General exit key ]")
     try:
         f= open('pass.dat','rb')
         # global password
@@ -122,8 +123,8 @@ def login():
 
 
 # General Interface Guide 
-print('_'*42)
-print("\n[ 'E' or 'e' is General exit key ]")
+# print('_'*42)
+print('Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n')
 
 # Runs 3 times to take and match mysql password for further processing 
 for i in range(3):
