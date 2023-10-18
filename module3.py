@@ -13,5 +13,5 @@ import os
 # todeleted = input('db to delete ')
 # deletedatabase('Home&8296',todeleted)
 
-createdatabase_if_not('Home&8296','sushant')
-# deletedatabase('Home&8296','sushant')
+createdatabase_if_not('Home&8296')
+# deletedatabase('Home&8296','library')

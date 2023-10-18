@@ -141,4 +141,5 @@ for i in range(3):
     except:
         print('wrong password')
     else:
+        cdatabase.createdatabase_if_not(userpass)
         login() # Calling login function only if the password is matched 

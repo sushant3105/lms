@@ -3,7 +3,7 @@
 from tabulate import tabulate
 import mysql.connector as con
 
-def viewbooks(sqlpass,dbasename='sample'):
+def viewbooks(sqlpass,dbasename='library'):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     cursor = mydb.cursor()
     infopanel = 'a > all\ng > genre'
