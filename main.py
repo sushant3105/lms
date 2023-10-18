@@ -6,6 +6,7 @@
 import mysql.connector as con
 import hashlib # For PASSWORD SECURITY
 import pickle as p # in use
+from getpass import getpass 
 import module1 as m1 # view books & searching
 import module2 as m2 # add & remove books
 import cdatabase # creates database if not found 
@@ -18,12 +19,12 @@ import cdatabase # creates database if not found
 # ADMIN FUNCTIONALITY [ more features ]
 def askadmin():
     'Features only accessible to admin [ requires password ]'
-    print('Welcome To LMS --')
-    admin_help = '\nv > view books \ns > search books \na > add books\nr > remove books\ne > exit'
+    print('-- ADMIN PANEL --')
+    admin_help = 'v > view books \ns > search books \na > add books\nr > remove books\ne > exit'
     print("\nUSE 'H' OR 'h' FOR HELP")
 
     while True:
-        user = input('\nadmin $ ')
+        user = input('admin $ ')
         if user == 'v':
             print('')
             rs= m1.viewbooks(userpass)
@@ -65,7 +66,7 @@ def login():
 
     # This code checks if admin passoword is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
-    print("\n[ 'E' or 'e' is General exit key ]")
+    print("\n[ 'E' or 'e' is General exit key ]",end='')
     try:
         f= open('pass.dat','rb')
         # global password
@@ -128,7 +129,7 @@ print('Library Management System [version 1.8]\n(c) Sushant. All rights reserved
 
 # Runs 3 times to take and match mysql password for further processing 
 for i in range(3):
-    userpass = input('Enter your mysql password : ')
+    userpass = getpass('Enter your mysql password : ')
     i +=1
     if i>=3:
         print('Try Again ! ')
@@ -136,7 +137,7 @@ for i in range(3):
     try:
         mydb = con.connect(host='localhost',user='root',password=userpass)
         # print('success')
-        print('successfully logined')
+        print('\nSUCCESSFULLY LOGINED..')
     except:
         print('wrong password')
     else:

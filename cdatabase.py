@@ -6,30 +6,34 @@ def createdatabase_if_not(sqlpass,dbasename='library'):
     # dbasename = input('Enter DATABASE/OR CREATE : ')
     try:
         mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
-        mera = mydb.cursor()
+        mcursor = mydb.cursor()
     except:
         print('Creating a new one...')
         mydb = con.connect(host='localhost',user='root',password=sqlpass)
         mcursor = mydb.cursor()
         mcursor.execute(f'create database {dbasename}')
+        mcursor.execute(f'use {dbasename}')
         print('\nDATABASE SUCCESSFULLY CREATED ..') 
         mydb.commit()
-        # mcursor.execute()
     else:
         print('DATABSE FOUND ..')
-        try:
-            mera.execute('show tables')
-            result = mera.fetchall()
-            if len(result)==0:
-                createtable()
-        except Exception as e:
-            print('Error at e ')
-            print(e)
+    finally:
+        mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
+        mcursor = mydb.cursor()
+        mcursor.execute('show tables')
+        result = mcursor.fetchall()
+        '''Another Method
+        # result = [list(x) for x in result]
+        # result = sum(result,[])
+        '''
+        result =  [element for innerList in result for element in innerList]
+        if 'books' and 'manage' in result:
+            print('Found Datasets.. ok !')
+        else:
+            print('Datasets Not Found ')
+        
 
-    return sqlpass
-def createtable():
-    print('hello brother')
-    # return dbasename
+    # return sqlpass
 
 def deletedatabase(sqlpass, dltit):
     try:
@@ -40,4 +44,4 @@ def deletedatabase(sqlpass, dltit):
         mera = mydb.cursor()
         mera.execute(f'drop database {dltit}')
         mydb.commit()
-        print('success')
+        print(f'SUCCESSFULLY DELETED {dltit}')

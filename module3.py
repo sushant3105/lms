@@ -1,5 +1,5 @@
 from cdatabase import *
-
+import os
 
 # ask = input('password : ')
 
@@ -8,7 +8,10 @@ from cdatabase import *
 
 # vsr = createdatabase_if_not('Home&8296')
 # print('The created database is,',vsr)
-createdatabase_if_not('Home&8296','libarry')
+# createdatabase_if_not('Home&8296','libarry')
 
 # todeleted = input('db to delete ')
 # deletedatabase('Home&8296',todeleted)
+
+createdatabase_if_not('Home&8296','sushant')
+# deletedatabase('Home&8296','sushant')
