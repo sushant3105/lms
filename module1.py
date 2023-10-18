@@ -6,14 +6,14 @@ import mysql.connector as con
 def viewbooks(sqlpass,dbasename='library'):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     cursor = mydb.cursor()
-    infopanel = 'a > all\ng > genre'
-    print(infopanel)
-    user = input('viewbooks $ ')
+    # infopanel = 'a > all\ng > genre'
+    # print(infopanel)
+    # user = input('viewbooks $ ')
     cursor.execute('select * from books')
     result = cursor.fetchall()
     result = [list(x) for x in result]
 
-    print(tabulate(result,headers=['Sr no.','Book Name', 'Author '],tablefmt='outline'))
+    print(tabulate(result,headers=['Sr no.','Book Name', 'Author '],tablefmt='presto'))
 
 def searchbooks():
     

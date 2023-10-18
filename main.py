@@ -10,7 +10,7 @@ from getpass import getpass
 import module1 as m1 # view books & searching
 import module2 as m2 # add & remove books
 import cdatabase # creates database if not found 
-
+import os
 
 # # Connecting Database
 # mydb = con.connect(host='localhost',user='root',password='Home&8296')
@@ -31,9 +31,11 @@ def askadmin():
         elif user=='h':
             print(admin_help)
         elif user == 'a':
-            m2.addbooks()
+            m2.addbooks(userpass)
+            pass
         elif user == 'r':
-            m2.removebooks()
+            m2.removebooks(userpass)
+            pass
         elif user == 'e':
             break
         elif user == '':
@@ -47,9 +49,10 @@ def user_function():
     'Features only accessible to user[ no password required ]'
 
     print('\nWelcome User')
+    user_help = '\nv > view books \ns > search books \ne > exit'
     while True:
-        print('\nv > view books \ns > search books \ne > exit\n')
-        user = input('user $ ')
+        # print('\nv > view books \ns > search books \ne > exit\n')
+        user = input('\nuser $ ')
         if user == 'v':
             print('')
             rs= m1.viewbooks(userpass)
@@ -57,6 +60,10 @@ def user_function():
         elif user == 'e':
             break
 
+        elif user =='H' or 'h':
+            print(user_help)
+        
+        
         else:
             print('Not Valid Input !')
 
@@ -66,7 +73,8 @@ def login():
 
     # This code checks if admin passoword is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
-    print("\n[ 'E' or 'e' is General exit key ]",end='')
+    print(info)
+    print("[ 'E' or 'e' is General exit key ]")
     try:
         f= open('pass.dat','rb')
         # global password
@@ -125,7 +133,8 @@ def login():
 
 # General Interface Guide 
 # print('_'*42)
-print('Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n')
+info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
+print(info)
 
 # Runs 3 times to take and match mysql password for further processing 
 for i in range(3):
@@ -142,4 +151,5 @@ for i in range(3):
         print('wrong password')
     else:
         cdatabase.createdatabase_if_not(userpass)
+        os.system('cls')
         login() # Calling login function only if the password is matched 
