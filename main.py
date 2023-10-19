@@ -36,11 +36,13 @@ def askadmin():
         elif user == 'r':
             m2.removebooks(userpass)
             pass
+        # elif user=='/user':
+        #     user_function()
         elif user == 'e':
             break
+            # exit()
         elif user == '':
             pass
-
         else:
             print('Not Valid Input !')
 
@@ -57,12 +59,14 @@ def user_function():
             print('')
             rs= m1.viewbooks(userpass)
 
+        # elif user=='/admin':
+        #     break
         elif user == 'e':
             break
+            # exit()
 
-        elif user =='H' or 'h':
+        elif user.lower()=='h':
             print(user_help)
-        
         
         else:
             print('Not Valid Input !')
@@ -73,7 +77,7 @@ def login():
 
     # This code checks if admin passoword is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
-    print(info)
+    # print(info)
     print("[ 'E' or 'e' is General exit key ]")
     try:
         f= open('pass.dat','rb')
@@ -136,9 +140,10 @@ def login():
 info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
 print(info)
 
-# Runs 3 times to take and match mysql password for further processing 
+# Runs 3 times to take and match mysql password for further processing
+'''
 for i in range(3):
-    userpass = getpass('Enter your mysql password : ')
+    userpass = input('Enter your mysql password : ')
     i +=1
     if i>=3:
         print('Try Again ! ')
@@ -151,5 +156,14 @@ for i in range(3):
         print('wrong password')
     else:
         cdatabase.createdatabase_if_not(userpass)
+        js = input('Enter To Continue....')
         os.system('cls')
         login() # Calling login function only if the password is matched 
+'''
+
+# bypass
+userpass = 'Home&8296'
+print('SUCCESSFULLY LOGINED..')
+js = input('Enter To Continue....')
+os.system('cls')
+login()
