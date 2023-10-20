@@ -17,7 +17,7 @@ import os
 # cursor = mydb.cursor()
 
 # ADMIN FUNCTIONALITY [ more features ]
-def admin_function():
+def askadmin():
     'Features only accessible to admin [ requires password ]'
     print('-- ADMIN PANEL --')
     admin_help = 'v > view books \ns > search books \na > add books\nr > remove books\ne > exit'
@@ -27,7 +27,7 @@ def admin_function():
         user = input('admin $ ')
         if user == 'v':
             print('')
-            m1.viewbooks(userpass)
+            rs= m1.viewbooks(userpass)
         elif user=='h':
             print(admin_help)
         elif user == 'a':
@@ -36,9 +36,11 @@ def admin_function():
         elif user == 'r':
             m2.removebooks(userpass)
             pass
+        elif user=='/user':
+            user_function()
         elif user == 'e':
-            break
-            # exit()
+            # break
+            exit()
         elif user == '':
             pass
         else:
@@ -55,13 +57,17 @@ def user_function():
         user = input('\nuser $ ')
         if user == 'v':
             print('')
-            m1.viewbooks(userpass)
+            rs= m1.viewbooks(userpass)
 
+        elif user=='/admin':
+            ifadmin()
         elif user == 'e':
-            break
+            # break
+            exit()
 
         elif user.lower()=='h':
             print(user_help)
+        
         
         else:
             print('Not Valid Input !')
@@ -72,11 +78,11 @@ def login():
 
     # This code checks if admin passoword is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
-    # print(info)
+    print(info)
     print("[ 'E' or 'e' is General exit key ]")
     try:
         f= open('pass.dat','rb')
-        # global password
+        global password
         password = p.load(f)
     except:
         askuser = input('Set Password For admin :')
@@ -95,28 +101,7 @@ def login():
 
         # password
         if user=='y':
-            while True:
-                ask_pass = input('\nEnter Password: ')
-                hashed_password = hashlib.sha256(ask_pass.encode('utf-8')).hexdigest()
-                # try:
-                #     f.seek(0)
-                #     password = p.load(f)
-                # except:
-                #     pass
-
-                if hashed_password == password:
-                    admin_function()
-                    break
-                
-                elif ask_pass=='':
-                    pass
-
-                elif ask_pass=='e':
-                    break
-
-                else:
-                    print('wrong password')
-
+            ifadmin()
         elif user=='n':
             user_function()
 
@@ -129,14 +114,35 @@ def login():
         else:
             print('Please Choose Accordingly !')
 
+def ifadmin():
+    while True:
+        ask_pass = input('\nEnter Password: ')
+        hashed_password = hashlib.sha256(ask_pass.encode('utf-8')).hexdigest()
+        # try:
+        #     f.seek(0)
+        #     password = p.load(f)
+        # except:
+        #     pass
+
+        if hashed_password == password:
+            askadmin()
+            break
+        
+        elif ask_pass=='':
+            pass
+
+        elif ask_pass=='e':
+            break
+
+        else:
+            print('wrong password')
 
 # General Interface Guide 
 # print('_'*42)
 info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
 print(info)
 
-# Runs 3 times to take and match mysql password for further processing
-'''
+# Runs 3 times to take and match mysql password for further processing 
 for i in range(3):
     userpass = input('Enter your mysql password : ')
     i +=1
@@ -154,11 +160,3 @@ for i in range(3):
         js = input('Enter To Continue....')
         os.system('cls')
         login() # Calling login function only if the password is matched 
-'''
-
-# bypass
-userpass = 'Home&8296'
-print('SUCCESSFULLY LOGINED..')
-js = input('Enter To Continue....')
-os.system('cls')
-login()

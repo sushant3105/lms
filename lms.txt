@@ -8,3 +8,5 @@ Tables > {
 }
 
 srno|bookname|author|id|genre|date
+
+srno = [element for innerList in srno for element in innerList]
