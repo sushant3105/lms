@@ -13,7 +13,7 @@ def viewbooks(sqlpass,dbasename='library'):
     result = cursor.fetchall()
     result = [list(x) for x in result]
 
-    print(tabulate(result,headers=['Sr no.','Book Name', 'Author '],tablefmt='presto'))
+    print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Id','Date Added'],tablefmt='outline'))
 
 def searchbooks():
     

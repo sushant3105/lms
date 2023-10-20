@@ -2,14 +2,17 @@
 import mysql.connector as con
 
 default='library'
+
 def addbooks(sqlpass,dbasename=default):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     cursor = mydb.cursor()
-    try:
-        srno = int(input('Enter SrNo: '))
-    except Exception as e:
-        print(e,'\nOnly Integer allowed')
-        srno = int(input('Enter SrNo: '))
+    while True:
+        try:
+            srno = int(input('Enter SrNo: '))
+            if isinstance(srno, int):
+                break
+        except Exception as e:
+            print(e)
 
     bookname = input('Enter Bookname: ')
     authorname = input('Enter Authorname: ')
@@ -28,8 +31,10 @@ def removebooks(sqlpass,dbasename=default):
         except Exception as e:
             print(e)
 
-    cursor.execute('delete from books where sr=%s',(wdel,))
+    cursor.execute('delete from books where srno=%s',(wdel,))
+    cursor.execute('update books set srno=srno-1 where srno>%s',(wdel,))
     mydb.commit()
-    pass
+
+
 if __name__=='__main__':
     removebooks('Home&8296')

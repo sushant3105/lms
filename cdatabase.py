@@ -36,7 +36,7 @@ def createdatasets(sqlpass,dbasename):
             print('Found Datasets.. ok !')
         elif 'books' not in result and 'manage' not in result:
             print('\nDatasets Not Found ')
-            books = 'sr int,bookname varchar(30),author varchar(30)'
+            books = 'srno int AUTO_INCREMENT,bookname varchar(30),author varchar(30),genre char(4),id char(10),date char(10),primary key(srno)'
             manage = 'sr int,issuer varchar(30),bookissued varchar(30)'
             mcursor.execute(f'create table books({books})')
             mcursor.execute(f'create table manage({manage})')
