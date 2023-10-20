@@ -36,7 +36,7 @@ def createdatasets(sqlpass,dbasename):
             print('Found Datasets.. ok !')
         elif 'books' not in result and 'manage' not in result:
             print('\nDatasets Not Found ')
-            books = 'srno int,bookname varchar(30),author varchar(30),genre char(4),id char(10),date char(10),primary key(id)'
+            books = 'srno int,bookname varchar(100),author varchar(100),genre char(4),id char(10),date char(10),primary key(id)'
             manage = 'sr int,issuer varchar(30),bookissued varchar(30)'
             mcursor.execute(f'create table books({books})')
             mcursor.execute(f'create table manage({manage})')
@@ -44,7 +44,7 @@ def createdatasets(sqlpass,dbasename):
             print('SUCCESSFULLY CREATED DATASETS..')
             print('\n-- READY TO PROCEED --')
         else:
-            print('INCOMPLETE INTERFERD TABLE ..\nDELETING DATABASE.. ')
+            print('INCOMPLETE TABLE ..\nDELETING DATABASE.. ')
             mcursor.execute(f'drop database {dbasename}')
 
             createdatabase_if_not(sqlpass,dbasename)

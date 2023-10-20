@@ -12,7 +12,7 @@ import add_and_remove as m2 # add & remove books
 import cdatabase # creates database if not found 
 import os
 
-# # Connecting Database
+# Connecting Database
 # mydb = con.connect(host='localhost',user='root',password='Home&8296')
 # cursor = mydb.cursor()
 
@@ -133,7 +133,7 @@ def login():
 # General Interface Guide 
 # print('_'*42)
 info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
-print(info)
+# print(info)
 
 # Runs 3 times to take and match mysql password for further processing
 '''
@@ -158,7 +158,7 @@ for i in range(3):
 
 # bypass
 userpass = 'Home&8296'
+cdatabase.createdatabase_if_not(userpass)
 print('SUCCESSFULLY LOGINED..')
 js = input('Enter To Continue....')
-os.system('cls')
 login()
