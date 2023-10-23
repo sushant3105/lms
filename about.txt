@@ -10,3 +10,9 @@ Tables > {
 srno|bookname|author|id|genre|date
 
 srno = [element for innerList in srno for element in innerList]
+
+srno|bookname|author|genre|qty|id|date
+>=
+can maintain Books
+
+can maintain book lenders and  borrower

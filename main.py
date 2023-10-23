@@ -10,7 +10,7 @@ from getpass import getpass
 import view_and_search as m1 # view books & searching
 import add_and_remove as m2 # add & remove books
 import cdatabase # creates database if not found 
-import os
+import update_data as m3
 
 # Connecting Database
 # mydb = con.connect(host='localhost',user='root',password='Home&8296')
@@ -24,7 +24,17 @@ def admin_function():
     print("\nUSE 'H' OR 'h' FOR HELP")
 
     while True:
-        user = input('admin $ ')
+        user= input('admin $ ')
+        user = user.strip()
+        try:
+            user,dl = user.split(maxsplit=1)
+            dl = dl.split()
+            dl = list(set(dl))
+            dl = [int(i) for i in dl]
+            dl.sort()
+        except:
+            dl = ''
+
         if user == 'v':
             print('')
             m1.viewbooks(userpass)
@@ -33,6 +43,11 @@ def admin_function():
         elif user == 'a':
             m2.addbooks(userpass)
             pass
+        elif user == 'u':
+            m3.updatebooks(userpass)
+        elif user == 'd' and len(dl)>=1:
+            for i in range(len(dl)):
+                m2.removebooks_specified(dl.pop() ,userpass)
         elif user == 'r':
             m2.removebooks(userpass)
             pass
@@ -160,5 +175,5 @@ for i in range(3):
 userpass = 'Home&8296'
 cdatabase.createdatabase_if_not(userpass)
 print('SUCCESSFULLY LOGINED..')
-js = input('Enter To Continue....')
-login()
+# js = input('Enter To Continue....')
+admin_function()
