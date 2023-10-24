@@ -7,10 +7,10 @@ import mysql.connector as con
 import hashlib # For PASSWORD SECURITY
 import pickle as p # in use
 from getpass import getpass 
-import view_and_search as m1 # view books & searching
-import add_and_remove as m2 # add & remove books
+import module1 as m1 # view books & searching
+import module2 as m2 # add & remove books
+import module3 as m3
 import cdatabase # creates database if not found 
-import update_data as m3
 
 # Connecting Database
 # mydb = con.connect(host='localhost',user='root',password='Home&8296')

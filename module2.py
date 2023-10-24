@@ -8,6 +8,7 @@ def addbooks(sqlpass,dbasename=default):
     cursor = mydb.cursor()
     bookname = input('Enter Bookname: ')
     authorname = input('Enter Authorname: ')
+    
     while True:
         genre = input('Genre[NF/F]: ')
         if genre.lower()=='nf' or genre.lower()=='f':
@@ -15,7 +16,7 @@ def addbooks(sqlpass,dbasename=default):
             break
         else:
             print('wrong')
-    
+
     try:
         cursor.execute('select * from books order by srno desc limit 1')
         srno = cursor.fetchone()[0]
@@ -64,3 +65,6 @@ def removebooks_specified(udao,sqlpass,dbasename=default):
     cursor.execute('delete from books where srno=%s',(udao,))
     # cursor.execute('update books set srno=srno-1 where srno>%s',(udao,))
     mydb.commit()
+
+if __name__=='__main__':
+    addbooks('Home&8296')

@@ -1,7 +1,7 @@
 # Update books and Manage
 
 import mysql.connector as con
-import view_and_search as vs
+import module1 as vs
 default = 'library'
 
 def updatebooks(sqlpass,dbasename=default):
