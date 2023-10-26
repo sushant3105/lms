@@ -1,0 +1,10 @@
+# main.py admin_function() to delete multiple at ones
+user = user.strip()
+try:
+    user,dl = user.split(maxsplit=1)
+    dl = dl.split()
+    dl = list(set(dl))
+    dl = [int(i) for i in dl]
+    dl.sort()
+except:
+    dl = ''

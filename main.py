@@ -20,37 +20,23 @@ import cdatabase # creates database if not found
 def admin_function():
     'Features only accessible to admin [ requires password ]'
     print('-- ADMIN PANEL --')
-    admin_help = 'v > view books \ns > search books \na > add books\nr > remove books\ne > exit'
+    admin_help = '\nv > view books \ns > search books \na > add books\nu > update books\nr > remove books\ne > exit'
     print("\nUSE 'H' OR 'h' FOR HELP")
 
     while True:
         user= input('admin $ ')
-        user = user.strip()
-        try:
-            user,dl = user.split(maxsplit=1)
-            dl = dl.split()
-            dl = list(set(dl))
-            dl = [int(i) for i in dl]
-            dl.sort()
-        except:
-            dl = ''
-
-        if user == 'v':
-            print('')
-            m1.viewbooks(userpass)
-        elif user=='h':
+        if user == 'h':
             print(admin_help)
+        elif user=='v':
+            m1.viewbooks(userpass)
+        elif user=='s':
+            m1.searchbooks(userpass)
         elif user == 'a':
             m2.addbooks(userpass)
-            pass
         elif user == 'u':
             m3.updatebooks(userpass)
-        elif user == 'd' and len(dl)>=1:
-            for i in range(len(dl)):
-                m2.removebooks_specified(dl.pop() ,userpass)
         elif user == 'r':
             m2.removebooks(userpass)
-            pass
         elif user == 'e':
             break
             # exit()
