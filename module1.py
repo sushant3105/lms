@@ -15,13 +15,14 @@ def viewbooks(sqlpass,dbasename='library'):
     # print(len(result))
     result = [list(x) for x in result]
 
-    print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Date Added'],tablefmt='outline'))
+    print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Date Added'],tablefmt='simple'))
 
 def searchbooks(sqlpass,dbasename='library'):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     cursor = mydb.cursor()
+    remo = '[1:bookname | 2:authorname]'
+    print(remo)
     user = input('What do you want to search -:')
-    # [1:bookname | 2:authorname]
     if user=='1':
         book = input('Enter `bookname` -:')
         cursor.execute('select srno,bookname,author,genre,date from books where bookname=%s',(book,))
@@ -40,5 +41,5 @@ def searchbooks(sqlpass,dbasename='library'):
         print(e)
   
 if __name__== '__main__':
-    viewbooks('Home&8296')
+    # viewbooks('Home&8296')
     searchbooks('Home&8296')

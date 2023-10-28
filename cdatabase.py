@@ -17,7 +17,7 @@ def createdatabase_if_not(sqlpass,dbasename='library'): # True values [ already 
         print('\nDATABASE SUCCESSFULLY CREATED ..') 
         mydb.commit()
     else:
-        print('DATABSE FOUND ..')
+        print('DATABASE FOUND ..')
     finally:
         createdatasets(sqlpass,dbasename)
 
@@ -60,3 +60,6 @@ def deletedatabase(sqlpass, dltit):
         mera.execute(f'drop database {dltit}')
         mydb.commit()
         print(f'\nSUCCESSFULLY DELETED {dltit}')
+
+if __name__=='__main__':
+    deletedatabase('Home&8296','library')

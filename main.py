@@ -74,15 +74,15 @@ def login():
     # This code checks if admin password is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
     # print(info)
-    print("[ 'E' or 'e' is General exit key ]")
+    print("\n[ 'E' or 'e' is General exit key ]")
     try:
-        f= open('pass.dat','rb')
+        f= open('lmsdata.dat','rb')
         # global password
         password = p.load(f)
     except:
         askuser = input('Set Password For admin :')
         new_password=hashlib.sha256(askuser.encode('utf-8')).hexdigest() # isko mat chuna
-        f = open('pass.dat','wb+')
+        f = open('lmsdata.dat','wb+')
         p.dump(new_password, f)
         f.seek(0)
         password = p.load(f)
@@ -135,8 +135,8 @@ def login():
 info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
 # print(info)
 
-# Runs 3 times to take and match mysql password for further processing
 '''
+# Runs 3 times to take and match mysql password for further processing
 for i in range(3):
     userpass = input('Enter your mysql password : ')
     i +=1
@@ -151,8 +151,7 @@ for i in range(3):
         print('wrong password')
     else:
         cdatabase.createdatabase_if_not(userpass)
-        js = input('Enter To Continue....')
-        os.system('cls')
+        # js = input('Enter To Continue....')
         login() # Calling login function only if the password is matched 
 '''
 
@@ -161,4 +160,5 @@ userpass = 'Home&8296'
 cdatabase.createdatabase_if_not(userpass)
 print('SUCCESSFULLY LOGINED..')
 # js = input('Enter To Continue....')
-admin_function()
+# admin_function()
+login()
