@@ -1,79 +1,91 @@
 # Author : Sushant
 # Project Work : Library Management System
-# PROFESSIONAL VERSION
+# BASIC COMMAND LINE INTERFACE
 
+# Importing Important Libraries and Modules
 import mysql.connector as con
-from pyfiglet import Figlet
-import hashlib
-import pickle as p
+import hashlib # For PASSWORD SECURITY
+import pickle as p # in use
+from getpass import getpass 
 import module1 as m1 # view books & searching
 import module2 as m2 # add & remove books
-import cdatabase
-
-# colors
+import module3 as m3
+import cdatabase # creates database if not found 
+from pyfiglet import Figlet
 from termcolor import cprint
 import colorama 
 colorama.init()
-
-
-# # Connecting Database
+# Connecting Database
 # mydb = con.connect(host='localhost',user='root',password='Home&8296')
 # cursor = mydb.cursor()
 
-
-def askadmin():
-    'Features'
-    cprint('Welcome To LMS --','yellow')
-    admin_help = '\nv > view books \ns > search books \na > add books\nr > remove books\ne > exit'
-    cprint("\nUSE 'H' OR 'h' FOR HELP",'white')
+# ADMIN FUNCTIONALITY [ more features ]
+def admin_function():
+    'Features only accessible to admin [ requires password ]'
+    print('-- ADMIN PANEL --')
+    admin_help = '\nv > view books \ns > search books \na > add books\nu > update books\nr > remove books\ne > exit'
+    print("\nUSE 'H' OR 'h' FOR HELP")
 
     while True:
-        cprint('\nadmin $ ','green', end='')
-        user = input('')
-        if user == 'v':
-            print('')
-            rs= m1.viewbooks(userpass)
-        elif user=='h':
+        cprint('admin $ ','green',end='')
+        user= input()
+        if user == 'h':
             print(admin_help)
+        elif user=='v':
+            m1.viewbooks(userpass)
+        elif user=='s':
+            m1.searchbooks(userpass)
         elif user == 'a':
-            m2.addbooks()
+            m2.addbooks(userpass)
+        elif user == 'u':
+            m3.updatebooks(userpass)
         elif user == 'r':
-            m2.removebooks()
+            m2.removebooks(userpass)
         elif user == 'e':
             break
+            # exit()
         elif user == '':
             pass
-
         else:
-            cprint('Not Valid Input !','red')
+            print('Not Valid Input !')
 
+# USER FUNCTIONALITY [ less features ]
 def user_function():
-    'Features'
+    'Features only accessible to user[ no password required ]'
 
-    cprint('\nWelcome User','light_blue')
+    print('\nWelcome User')
+    user_help = '\nv > view books \ns > search books \ne > exit'
     while True:
-        print('\nv > view books \ns > search books \ne > exit\n')
-        user = input('user $ ')
+        # print('\nv > view books \ns > search books \ne > exit\n')
+        user = input('\nuser $ ')
         if user == 'v':
             print('')
-            rs= m1.viewbooks(userpass)
+            m1.viewbooks(userpass)
 
         elif user == 'e':
             break
 
+        elif user.lower()=='h':
+            print(user_help)
+        
         else:
-            cprint('Not Valid Input !','red')
+            print('Not Valid Input !')
 
-
+# Login function for admin panel
 def login():
-    'login function'
+    'asks password from user for admin access'
+
+    # This code checks if admin password is setup or not
+    # Creates new .dat file for storing hashed password if not found in directory
+    # print(info)
+    print("[ 'E' or 'e' is General exit key ]")
     try:
         f= open('pass.dat','rb')
         # global password
         password = p.load(f)
     except:
         askuser = input('Set Password For admin :')
-        new_password=hashlib.sha256(askuser.encode('utf-8')).hexdigest()
+        new_password=hashlib.sha256(askuser.encode('utf-8')).hexdigest() # isko mat chuna
         f = open('pass.dat','wb+')
         p.dump(new_password, f)
         f.seek(0)
@@ -81,9 +93,8 @@ def login():
     finally:
         f.close()
 
+    # Running infinite loop for password value verification until not matched
     while True:
-        # cprint('\nAdmin ? Y\\n : ','cyan',attrs=['bold'], end='')
-        # user = input('')
         user = input('\nAdmin ? Y\\n : ')
         user = user.lower()
 
@@ -99,7 +110,7 @@ def login():
                 #     pass
 
                 if hashed_password == password:
-                    askadmin()
+                    admin_function()
                     break
                 
                 elif ask_pass=='':
@@ -109,7 +120,7 @@ def login():
                     break
 
                 else:
-                    cprint('wrong password','red')
+                    print('wrong password')
 
         elif user=='n':
             user_function()
@@ -121,17 +132,15 @@ def login():
             exit()
         
         else:
-            cprint('Please Choose Accordingly !','light_red')
+            print('Please Choose Accordingly !')
 
+# General Interface Guide 
+# print('_'*42)
+info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
+# print(info)
 
-f = Figlet(font='standard')
-print(f.renderText('Library Management System'))
-
-print('_'*42)
-# print('#'*42)
-
-cprint("\n[ 'E' or 'e' is General exit key ]",'light_yellow')
-
+# Runs 3 times to take and match mysql password for further processing
+'''
 for i in range(3):
     userpass = input('Enter your mysql password : ')
     i +=1
@@ -139,10 +148,26 @@ for i in range(3):
         print('Try Again ! ')
         break
     try:
-        mydb = con.connect(host='localhost',user='root',database='sample',password=userpass)
+        mydb = con.connect(host='localhost',user='root',password=userpass)
         # print('success')
-        print('successfully logined')
+        print('\nSUCCESSFULLY LOGINED..')
     except:
         print('wrong password')
     else:
-        login()
+        cdatabase.createdatabase_if_not(userpass)
+        js = input('Enter To Continue....')
+        os.system('cls')
+        login() # Calling login function only if the password is matched 
+'''
+
+f = Figlet(font='standard')
+print(f.renderText('Library Management System'))
+print('_'*42)
+# print('#'*42)
+
+# bypass
+userpass = 'Home&8296'
+cdatabase.createdatabase_if_not(userpass)
+print('SUCCESSFULLY LOGINED..')
+# js = input('Enter To Continue....')
+admin_function()

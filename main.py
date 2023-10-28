@@ -71,7 +71,7 @@ def user_function():
 def login():
     'asks password from user for admin access'
 
-    # This code checks if admin passoword is setup or not
+    # This code checks if admin password is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
     # print(info)
     print("[ 'E' or 'e' is General exit key ]")
@@ -81,7 +81,7 @@ def login():
         password = p.load(f)
     except:
         askuser = input('Set Password For admin :')
-        new_password=hashlib.sha256(askuser.encode('utf-8')).hexdigest() # don't touch this
+        new_password=hashlib.sha256(askuser.encode('utf-8')).hexdigest() # isko mat chuna
         f = open('pass.dat','wb+')
         p.dump(new_password, f)
         f.seek(0)
@@ -129,7 +129,6 @@ def login():
         
         else:
             print('Please Choose Accordingly !')
-
 
 # General Interface Guide 
 # print('_'*42)

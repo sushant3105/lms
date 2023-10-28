@@ -12,6 +12,7 @@ def viewbooks(sqlpass,dbasename='library'):
     # user = input('viewbooks $ ')
     cursor.execute('select srno,bookname,author,genre,date from books')
     result = cursor.fetchall()
+    # print(len(result))
     result = [list(x) for x in result]
 
     print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Date Added'],tablefmt='outline'))
@@ -34,10 +35,10 @@ def searchbooks(sqlpass,dbasename='library'):
         result = cursor.fetchall()
         result = [list(x) for x in result]
 
-        print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Date Added'],tablefmt='outline'))        
+        print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Date Added'],tablefmt='simple'))        
     except Exception as e:
         print(e)
-
+  
 if __name__== '__main__':
     viewbooks('Home&8296')
     searchbooks('Home&8296')
