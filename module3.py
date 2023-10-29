@@ -38,4 +38,7 @@ def updatebooks(sqlpass,dbasename=default):
         print("\n[ /DO YOU MEAN TO ADD BOOKS !? ] [ try 'a' ] ")
 
 def managebooks(sqlpass,dbasename=default):
+    mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
+    mycursor = mydb.cursor()
+    
     pass
