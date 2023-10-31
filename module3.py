@@ -1,7 +1,6 @@
 # Update books and Manage
 
 import mysql.connector as con
-import module1 as vs
 default = 'library'
 
 def updatebooks(sqlpass,dbasename=default):
@@ -41,16 +40,34 @@ def managebooks(sqlpass,dbasename=default):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     mycursor = mydb.cursor()
     print('[1:issue book | 2:return book]')
-    remo = input('Enter -:')
+    remo = input('Enter Choice -:')
     returnd = 'no'
     if remo=='1':
-        username = input('Name-: ')
         bookname = input('Book-: ')
-        mycursor.execute('insert into manage values(%s,%s,%s)',(username,bookname,returnd))
-        mydb.commit()
+        bookname = bookname.capitalize()
+        mycursor.execute('select bookname from books')
+        result = mycursor.fetchall()
+
+        found = 0        
+        for i in result:
+            if bookname in i:
+                # print('\nBook found')
+                found = 1
+        if found >=1:
+            try:
+                username = input('Name-: ')
+                mycursor.execute('insert into manage values(%s,%s,%s)',(username,bookname,returnd))
+                mydb.commit()
+            except:
+                print(f'{username} already issued a book')
+        else:
+            print('book not found')
     elif remo=='2':
         username = input('Name-: ')
         # mycursor.execute("update manage set returned = 'yes' where issuer=%s",(username,))
         mycursor.execute("delete from manage where issuer=%s",(username,))
 
         mydb.commit()
+
+if __name__=='__main__':
+    managebooks('Home&8296')

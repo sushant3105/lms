@@ -65,6 +65,8 @@ def user_function():
 
         elif user == 'e':
             break
+        elif user == 's':
+            m1.searchbooks(userpass)
 
         elif user.lower()=='h':
             print(user_help)
@@ -79,7 +81,7 @@ def login():
     # This code checks if admin password is setup or not
     # Creates new .dat file for storing hashed password if not found in directory
     # print(info)
-    print("\n[ 'E' or 'e' is General exit key ]")
+    # print("\n[ 'E' or 'e' is General exit key ]")
     try:
         f= open('lmsdata.dat','rb')
         # global password
@@ -95,6 +97,7 @@ def login():
         f.close()
 
     # Running infinite loop for password value verification until not matched
+    print("\n[ 'E' or 'e' is General exit key ]")
     while True:
         user = input('\nAdmin ? Y\\n : ')
         user = user.lower()

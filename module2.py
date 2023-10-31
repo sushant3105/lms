@@ -7,6 +7,7 @@ def addbooks(sqlpass,dbasename=default):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     cursor = mydb.cursor()
     bookname = input('Enter Bookname: ')
+    bookname = bookname.capitalize()
     authorname = input('Enter Authorname: ')
     
     while True:

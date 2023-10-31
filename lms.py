@@ -23,18 +23,16 @@ colorama.init()
 def admin_function():
     'Features only accessible to admin [ requires password ]'
     print('-- ADMIN PANEL --')
-    bookhelp = '\n-- BOOKS --\nviewing-:\nv > view books \ns > search books \n\nediting-:\na > add books\nu > update books\nr > remove books\n-- xx --'
-    managehelp = '\n-- MANAGE --\nm > manage books\n\n-- xx --\n'
+    bookhelp = '\nv > view books \ns > search books \na > add books\nu > update books\nr > remove books\nm > manage books\n'
     print("\nUSE 'H' OR 'h' FOR HELP")
 
     while True:
         cprint('admin $ ','green',end='')
         user= input()
         user = user.strip()
-        if user== '/h books':
+        user = user.lower()
+        if user== 'h':
             print(bookhelp)
-        elif user=='/h manage':
-            print(managehelp)
         elif user=='v':
             m1.viewbooks(userpass)
         elif user=='s':
@@ -46,6 +44,7 @@ def admin_function():
         elif user == 'r':
             m2.removebooks(userpass)
         elif user == 'm':
+            m1.viewissue(userpass)
             m3.managebooks(userpass)
         elif user == 'e':
             break
@@ -70,6 +69,8 @@ def user_function():
 
         elif user == 'e':
             break
+        elif user == 's':
+            m1.searchbooks(userpass)
 
         elif user.lower()=='h':
             print(user_help)
