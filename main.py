@@ -20,17 +20,14 @@ import cdatabase # creates database if not found
 def admin_function():
     'Features only accessible to admin [ requires password ]'
     print('-- ADMIN PANEL --')
-    bookhelp = '\n-- BOOKS --\nviewing-:\nv > view books \ns > search books \n\nediting-:\na > add books\nu > update books\nr > remove books\n-- xx --'
-    managehelp = '\n-- MANAGE --\n-- xx --\n'
+    bookhelp = '\nv > view books \ns > search books \na > add books\nu > update books\nr > remove books\nm > manage books\n'
     print("\nUSE 'H' OR 'h' FOR HELP")
-
     while True:
         user= input('admin $ ')
         user = user.strip()
-        if user== '/h books':
+        user = user.lower()
+        if user== 'h':
             print(bookhelp)
-        elif user=='/h manage':
-            print(managehelp)
         elif user=='v':
             m1.viewbooks(userpass)
         elif user=='s':
@@ -41,6 +38,9 @@ def admin_function():
             m3.updatebooks(userpass)
         elif user == 'r':
             m2.removebooks(userpass)
+        elif user == 'm':
+            m1.viewissue(userpass)
+            m3.managebooks(userpass)
         elif user == 'e':
             break
             # exit()
@@ -53,8 +53,9 @@ def admin_function():
 def user_function():
     'Features only accessible to user[ no password required ]'
 
-    print('\nWelcome User')
+    print('-- USER PANEL --')
     user_help = '\nv > view books \ns > search books \ne > exit'
+    print("\nUSE 'H' OR 'h' FOR HELP")
     while True:
         # print('\nv > view books \ns > search books \ne > exit\n')
         user = input('\nuser $ ')
@@ -137,9 +138,8 @@ def login():
 # General Interface Guide 
 # print('_'*42)
 info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
-# print(info)
+print(info)
 
-'''
 # Runs 3 times to take and match mysql password for further processing
 for i in range(3):
     userpass = input('Enter your mysql password : ')
@@ -157,12 +157,12 @@ for i in range(3):
         cdatabase.createdatabase_if_not(userpass)
         # js = input('Enter To Continue....')
         login() # Calling login function only if the password is matched 
-'''
 
-# bypass
-userpass = 'Home&8296'
-cdatabase.createdatabase_if_not(userpass)
-print('SUCCESSFULLY LOGINED..')
-# js = input('Enter To Continue....')
-admin_function()
-# login()
+
+# # bypass
+# userpass = 'Home&8296'
+# cdatabase.createdatabase_if_not(userpass)
+# print('SUCCESSFULLY LOGINED..')
+# # js = input('Enter To Continue....')
+# admin_function()
+# # login()

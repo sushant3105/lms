@@ -37,7 +37,7 @@ def createdatasets(sqlpass,dbasename):
         elif 'books' not in result and 'manage' not in result:
             print('\nDatasets Not Found ')
             books = 'srno int,bookname varchar(100),author varchar(100),genre char(4),id char(10),date char(10),primary key(id)'
-            manage = 'sr int,issuer varchar(30),bookissued varchar(30), returned char(4)'
+            manage = 'issuer varchar(30),bookissued varchar(30), returned char(4), primary key(issuer)'
 
             mcursor.execute(f'create table books({books})')
             mcursor.execute(f'create table manage({manage})')
@@ -63,5 +63,5 @@ def deletedatabase(sqlpass, dltit):
         print(f'\nSUCCESSFULLY DELETED {dltit}')
 
 if __name__=='__main__':
-    # deletedatabase('Home&8296','library')
+    deletedatabase('Home&8296','library')
     createdatabase_if_not('Home&8296')

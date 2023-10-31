@@ -40,5 +40,17 @@ def updatebooks(sqlpass,dbasename=default):
 def managebooks(sqlpass,dbasename=default):
     mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
     mycursor = mydb.cursor()
-    
-    pass
+    print('[1:issue book | 2:return book]')
+    remo = input('Enter -:')
+    returnd = 'no'
+    if remo=='1':
+        username = input('Name-: ')
+        bookname = input('Book-: ')
+        mycursor.execute('insert into manage values(%s,%s,%s)',(username,bookname,returnd))
+        mydb.commit()
+    elif remo=='2':
+        username = input('Name-: ')
+        # mycursor.execute("update manage set returned = 'yes' where issuer=%s",(username,))
+        mycursor.execute("delete from manage where issuer=%s",(username,))
+
+        mydb.commit()

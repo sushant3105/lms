@@ -11,8 +11,6 @@ def viewbooks(sqlpass,dbasename='library'):
     # print(infopanel)
     # user = input('viewbooks $ ')
     cursor.execute('select srno,bookname,author,genre,date from books')
-    # print(len(result))
-
     result = cursor.fetchall()
     # result = [list(x) for x in result]
 
@@ -40,7 +38,17 @@ def searchbooks(sqlpass,dbasename='library'):
         print(tabulate(result,headers=['Sr no.','Book Name', 'Author ','Genre','Date Added'],tablefmt='simple'))        
     except Exception as e:
         print(e)
-  
+
+def viewissue(sqlpass,dbasename='library'):
+    mydb = con.connect(host='localhost',user='root',password=sqlpass,database=dbasename)
+    mycursor = mydb.cursor()
+    mycursor.execute('select * from manage')
+    result = mycursor.fetchall()
+    result = [list(x) for x in result]
+    # print(result)
+    print(tabulate(result,headers=['Issuer name','Bookname', 'Returned'],tablefmt='outline'))
+
 if __name__== '__main__':
     # viewbooks('Home&8296')
-    searchbooks('Home&8296')
+    # searchbooks('Home&8296')
+    viewissue('Home&8296')

@@ -23,14 +23,18 @@ colorama.init()
 def admin_function():
     'Features only accessible to admin [ requires password ]'
     print('-- ADMIN PANEL --')
-    admin_help = '\nv > view books \ns > search books \na > add books\nu > update books\nr > remove books\ne > exit'
+    bookhelp = '\n-- BOOKS --\nviewing-:\nv > view books \ns > search books \n\nediting-:\na > add books\nu > update books\nr > remove books\n-- xx --'
+    managehelp = '\n-- MANAGE --\nm > manage books\n\n-- xx --\n'
     print("\nUSE 'H' OR 'h' FOR HELP")
 
     while True:
         cprint('admin $ ','green',end='')
         user= input()
-        if user == 'h':
-            print(admin_help)
+        user = user.strip()
+        if user== '/h books':
+            print(bookhelp)
+        elif user=='/h manage':
+            print(managehelp)
         elif user=='v':
             m1.viewbooks(userpass)
         elif user=='s':
@@ -41,6 +45,8 @@ def admin_function():
             m3.updatebooks(userpass)
         elif user == 'r':
             m2.removebooks(userpass)
+        elif user == 'm':
+            m3.managebooks(userpass)
         elif user == 'e':
             break
             # exit()
@@ -80,13 +86,13 @@ def login():
     # print(info)
     print("[ 'E' or 'e' is General exit key ]")
     try:
-        f= open('pass.dat','rb')
+        f= open('lmsdata.dat','rb')
         # global password
         password = p.load(f)
     except:
         askuser = input('Set Password For admin :')
         new_password=hashlib.sha256(askuser.encode('utf-8')).hexdigest() # isko mat chuna
-        f = open('pass.dat','wb+')
+        f = open('lmsdata.dat','wb+')
         p.dump(new_password, f)
         f.seek(0)
         password = p.load(f)
@@ -136,11 +142,15 @@ def login():
 
 # General Interface Guide 
 # print('_'*42)
-info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
-# print(info)
+# info = 'Library Management System [version 1.8]\n(c) Sushant. All rights reserved\n'
+# # print(info)
+
+f = Figlet(font='standard')
+print(f.renderText('Library Management System'))
+print('_'*42)
 
 # Runs 3 times to take and match mysql password for further processing
-'''
+
 for i in range(3):
     userpass = input('Enter your mysql password : ')
     i +=1
@@ -156,18 +166,14 @@ for i in range(3):
     else:
         cdatabase.createdatabase_if_not(userpass)
         js = input('Enter To Continue....')
-        os.system('cls')
+        # os.system('cls')
         login() # Calling login function only if the password is matched 
-'''
 
-f = Figlet(font='standard')
-print(f.renderText('Library Management System'))
-print('_'*42)
 # print('#'*42)
 
-# bypass
-userpass = 'Home&8296'
-cdatabase.createdatabase_if_not(userpass)
-print('SUCCESSFULLY LOGINED..')
-# js = input('Enter To Continue....')
-admin_function()
+# # bypass
+# userpass = 'Home&8296'
+# cdatabase.createdatabase_if_not(userpass)
+# print('SUCCESSFULLY LOGINED..')
+# # js = input('Enter To Continue....')
+# admin_function()
